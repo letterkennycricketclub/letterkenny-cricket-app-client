@@ -20,6 +20,6 @@
     "jsx": "react"
   },
   "include": [
-    "src"
+    "src", "../letterkenny-cricket-api/tsconfig.json", "service-config.ts"
   ]
 }
