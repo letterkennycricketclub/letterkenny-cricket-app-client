@@ -6,7 +6,7 @@ export default class AppFooter extends React.Component {
 
             <footer className="page-footer font-small blue" >
                 <div className="footer-copyright text-center py-3">© 2020 Copyright:
-                    <a href="/"> Letterkenny Cricket Council</a>
+                    <a href="/"> Letterkenny Cricket Club</a>
                 </div>
                 <style>{`
             .page-footer {

@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import Table from 'react-bootstrap/Table';
 import Card from 'react-bootstrap/Card';
 import { AppProps, PointTable } from '../../core/props';
+import { ListGroupItem } from 'react-bootstrap';
+import { HashLink as Link } from 'react-router-hash-link';
 
 const tableSytle = {
     marginLeft: '0px'
@@ -15,6 +17,7 @@ export default class ClubPointTable extends Component<AppProps> {
         let headers = [];
         let indx;
         let obj;
+        let col;
         for (let i = 0; i < data.length; i++) {
             tDs = [];
             indx = -1;
@@ -24,7 +27,13 @@ export default class ClubPointTable extends Component<AppProps> {
                 if (i === 0) {
                     headers.push(<th key={indx}>{j}</th>);
                 }
-                tDs.push(<td key={indx}>{typeof (obj[j]) === 'string' ? obj[j] : obj[j] + ''}</td>);
+                if (j === 'Logo') {
+                    col = <td key={indx}><img alt="team logo" src={obj[j]}></img></td>
+
+                } else {
+                    col = <td key={indx}>{typeof (obj[j]) === 'string' ? obj[j] : obj[j] + ''}</td>
+                }
+                tDs.push(col);
             }
             tBody.push(<tr key={i}>{tDs}</tr>)
         }
@@ -43,12 +52,20 @@ export default class ClubPointTable extends Component<AppProps> {
             );
         }
     }
+
+    generateLinks(allowedHeaders: any, id: string): React.ReactNode {
+        return allowedHeaders && allowedHeaders.length > 0 ?(<ListGroupItem key={id}>
+        <Link smooth to={'/detailed-point-table/#' + id}> Click to view Detailed Point Table </Link>
+      </ListGroupItem>) : ''
+    }
     generatePointTables(pointTables: PointTable[]): React.ReactNode {
+        const allowedHeaders: any = this.props.allowedPointHeaders;
         return pointTables.map((pointTable: PointTable) => {
-            const { title, data } = pointTable;
-            const { headers, tBody } = this.generateTable(data);
-            return (<Card.Body key={title}>
-                <Card.Title>{title}</Card.Title>
+            const { id, name, data } = pointTable;
+            let filteredData = this.getFilteredData(allowedHeaders, data);
+            const { headers, tBody } = this.generateTable(filteredData);
+            return filteredData && filteredData.length > 0 ? (<Card.Body id={id} key={id}>
+                <Card.Title>{name}</Card.Title>
                 <Table striped bordered hover size="sm" style={tableSytle} responsive>
                     <thead>
                         <tr>
@@ -59,8 +76,28 @@ export default class ClubPointTable extends Component<AppProps> {
                         {tBody}
                     </tbody>
                 </Table>
-            </Card.Body>);
+                        {this.generateLinks(allowedHeaders, id)}
+            </Card.Body>) : '';
         })
 
+    }
+
+    getFilteredData(allowedHeaders: string[], data: any[]) {
+        let newObj: any;
+        let filteredData;
+        if (allowedHeaders && allowedHeaders.length > 0) {
+            filteredData = data.map((obj) => {
+                newObj = {};
+                allowedHeaders.map((allowHeader) => {
+                    if (obj.hasOwnProperty(allowHeader)) {
+                        newObj[allowHeader] = obj[allowHeader];
+                    }
+                });
+                return newObj;
+            });
+            return filteredData;
+        } else {
+            return data;
+        }
     }
 }

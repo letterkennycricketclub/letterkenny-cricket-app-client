@@ -6,13 +6,14 @@ import { ApiContext } from '../core/api-context';
 
 const Home: FC<AppProps> = (props: AppProps) => {
     const context: any = useContext(ApiContext);
+    const allowedPointHeaders = ['Rank', 'Logo', 'M', 'W', 'L', 'TotalRuns Scored', 'Pts', 'Round1 Pt', 'RR', 'NRR'];
     return (
         <Container>
             <Row className="mt-5">
                 <Col md="8">
                     <Row>
                         <ClubCarousel medias={context.medias} />
-                        <ClubPointTable pointTables={context.pointTables} />
+                        <ClubPointTable pointTables={context.pointTables} allowedPointHeaders={allowedPointHeaders}/>
                     </Row>
                 </Col>
                 <Col md="4">

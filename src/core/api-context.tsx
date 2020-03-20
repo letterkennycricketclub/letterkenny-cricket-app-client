@@ -16,7 +16,7 @@ const Context = (props: any) => {
         setMedias(medias);
     });
     HttpService.fetch(AppConstants.API.POINT_TABLE_API).then((pointTables) => {
-        setPointTables(pointTables);
+        setPointTables(pointTables.tournaments);
     });
     HttpService.fetch(AppConstants.API.HOME_CARD_API).then((cardDetails) => {
         setCardDetails(cardDetails);

@@ -42,7 +42,7 @@ const AppCard: React.FC<AppProps> = (props) =>{
   const generateCards = (cardDetails: CardDetail[]) => {
     if (cardDetails && cardDetails.length > 0) {
       const cards = cardDetails.map((cardDetail: any, index) => {
-        return <Card style={cardStyle} key={index}>
+        return <Card style={cardStyle} key={index} id={('card' + index)}>
           { generateImage(cardDetail)}
           { generateBody(cardDetail)}
           { generateLinks(cardDetail.links) }

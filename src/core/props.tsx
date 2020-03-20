@@ -5,7 +5,8 @@ export interface Media {
 }
 
 export interface PointTable {
-    title: string;
+    id: string;
+    name: string;
     data: Array<any>;
 }
 
@@ -36,6 +37,7 @@ export interface Tournament {
 }
 
 export type AppProps = {
+    allowedPointHeaders?: string[];
     medias?: Media[];
     pointTables? : PointTable[];
     tournaments?: Tournament[];

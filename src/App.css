@@ -16,3 +16,6 @@
   height : 50px;
   cursor: pointer;
 }
+html {
+  scroll-behavior: smooth;
+}
