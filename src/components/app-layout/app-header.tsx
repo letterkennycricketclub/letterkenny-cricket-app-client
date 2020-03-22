@@ -1,8 +1,14 @@
 import * as React from 'react'
-import { Navbar, Nav} from 'react-bootstrap';
+import { Navbar, Nav, Button} from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 export default class AppHeader extends React.Component {
+
+  generateLoginComp() {
+    return (window.location.pathname.indexOf('/admin') !== -1) ? 
+    <Button variant="outline-success">Login</Button> : '';
+  }
+
   render() {
     return (
       <header>
@@ -16,6 +22,7 @@ export default class AppHeader extends React.Component {
               <Link to={'/tournaments'} className='nav-link'>Tournaments</Link>
               <Link to={'/about'} className='nav-link'>About</Link>
               </Nav>
+              {this.generateLoginComp()}
             </Navbar.Collapse>
           </Navbar>
       </header>

@@ -10,6 +10,10 @@ import About from './routes/about';
 import Tournaments from './routes/tournaments';
 import Context from './core/api-context';
 import DetailedPointTable from './components/point-table/detailed-point-table';
+import { AdminRoute } from './routes/admin/admin-route';
+import AdminPointTable from './routes/admin/point-table';
+import Login from './components/login/login';
+import Admin from './routes/admin/admin';
 
 export default class App extends Component {
   render() {
@@ -23,7 +27,11 @@ export default class App extends Component {
               <Route exact path='/about' component={About} />
               <Route exact path='/tournaments' component={Tournaments} />
               <Route exact path='/detailed-point-table' component={DetailedPointTable} />
-              </Context>
+                
+              <Route exact path='/admin/login' component={Login} />
+              <AdminRoute path="/admin/home" component={Admin} />
+              <AdminRoute path='/admin/point-table' component={AdminPointTable} />
+          </Context>
         </Switch>
       </AppLayout>
     );
