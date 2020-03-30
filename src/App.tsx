@@ -10,6 +10,7 @@ import About from './routes/about';
 import Tournaments from './routes/tournaments';
 import Context from './core/api-context';
 import DetailedPointTable from './components/point-table/detailed-point-table';
+import Dashboards from './routes/dashboards';
 
 export default class App extends Component {
   render() {
@@ -23,6 +24,7 @@ export default class App extends Component {
               <Route exact path='/about' component={About} />
               <Route exact path='/tournaments' component={Tournaments} />
               <Route exact path='/detailed-point-table' component={DetailedPointTable} />
+              <Route exact path='/dashboard' component={Dashboards} />
               </Context>
         </Switch>
       </AppLayout>
