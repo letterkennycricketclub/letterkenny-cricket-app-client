@@ -1,8 +1,8 @@
 import React, { FC, useContext } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import { ReactChart } from '../components/Charts/bar-chart';
+import { ReactPieChart } from '../components/Charts/pie-chart';
 import { ApiContext } from '../core/api-context';
-import { AppProps, PointTable } from '../core/props';
 
 let chartData: any = [];
 
@@ -22,7 +22,7 @@ function generateChartData(pointTableData: any, tournamentId: string, xAxisField
     let barChartData: any = [];
     let selectedTournamentData = getTournamentData(pointTableData, tournamentId);
     for (let i = 0; i < selectedTournamentData.length; i++) {
-        let tempArray= [];
+        let tempArray = [];
         tempArray.push(selectedTournamentData[i][xAxisField]);
         tempArray.push(selectedTournamentData[i][yAxisField]);
         barChartData.push(tempArray);
@@ -38,22 +38,16 @@ const Dashboard: FC = () => {
         console.log('chart data is', chartData);
 
         return (
-            <Container>
-                <Row className="mt-5">
-                    <Col md="12">
-                        <Row>
-                            {/* <ReactChart width={800} height={500} data={chartData} /> */}
-                            <ReactChart title='Indoor Cricket League' data={chartData} />
-                        </Row>
-                    </Col>
-                </Row>
+            <Container className="dashboards">
+                <ReactChart title='Indoor Cricket League' data={chartData} />
+                <ReactPieChart title='Indoor Cricket League' data={chartData} />
             </Container>
         )
     } else {
         return (
             <Container>
                 <div>No data available currently</div>
-             </Container>
+            </Container>
         );
     }
 }

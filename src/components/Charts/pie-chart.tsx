@@ -2,11 +2,11 @@ import * as React from 'react';
 import Highcharts from "highcharts/highstock";
 import Chart from "highcharts-react-official";
 
-export class ReactChart extends React.Component<any> {
+export class ReactPieChart extends React.Component<any> {
 
     private config = {
         chart: {
-            type: 'column'
+            type: 'pie'
         },
         title: {
             text: this.props.title,
@@ -14,33 +14,13 @@ export class ReactChart extends React.Component<any> {
         subtitle: {
             text: 'Source: Letterkenny Cricket Club'
         },
-        xAxis: {
-            type: 'category',
-            labels: {
-                rotation: -45,
-                style: {
-                    fontSize: '13px',
-                    fontFamily: 'Verdana, sans-serif'
-                }
+        series: [
+            {
+                name: 'Total Score',
+                colorByPoint: true,
+                data: this.props.data,
             }
-        },
-        yAxis: {
-            min: 0,
-            title: {
-                text: 'Total Score of team'
-            }
-        },
-        legend: {
-            enabled: false
-        },
-        tooltip: {
-            pointFormat: 'Total runs scored: <b>{point.y:.1f} </b>'
-        },
-        series: [{
-            name: 'Total score of team',
-            data: this.props.data,
-
-        }],
+        ],
         responsive: {
             rules: [{
                 condition: {
@@ -65,7 +45,7 @@ export class ReactChart extends React.Component<any> {
     render(): any {
 
         return (
-            <div className="bar-chart">
+            <div className="pie-chart">
                 <Chart highcharts={Highcharts} options={this.config} />
             </div>
         )
