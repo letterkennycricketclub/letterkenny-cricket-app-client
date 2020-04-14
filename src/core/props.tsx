@@ -44,4 +44,5 @@ export type AppProps = {
     cardDetails?: CardDetail[];
     eventDetails?: CardDetail[];
     chartData?: any;
+    editPointTable?: boolean;
 }
