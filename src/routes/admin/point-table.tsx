@@ -11,7 +11,7 @@ const AdminPointTable: FC<AppProps> = (props: AppProps) => {
             <Row className="mt-5">
                 <Col md="12">
                     <Row>
-                        <ClubPointTable pointTables={context.pointTables} editPointTable={true}/>
+                        <ClubPointTable pointTables={context.pointTables} />
                     </Row>
                 </Col>
                 {/* <Col md="4">

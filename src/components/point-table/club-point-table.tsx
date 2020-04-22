@@ -30,8 +30,6 @@ export default class ClubPointTable extends Component<AppProps> {
                 if (j === 'Logo') {
                     col = <td key={indx}><img alt="team logo" src={obj[j]}></img></td>
 
-                } else if(this.props.editPointTable) {
-                    col = <td key={indx}><input value={typeof (obj[j]) === 'string' ? obj[j] : obj[j] + ''}></input></td>
                 } else {
                     col = <td key={indx}>{typeof (obj[j]) === 'string' ? obj[j] : obj[j] + ''}</td>
                 }
