@@ -36,6 +36,14 @@ export interface Tournament {
     teams? : Team[];
 }
 
+export interface BarInterface {
+    key?: number;
+    x?: any;
+    y? : any;
+    width? : number;
+    height? : number;
+}
+
 export type AppProps = {
     allowedPointHeaders?: string[];
     medias?: Media[];
@@ -45,4 +53,5 @@ export type AppProps = {
     eventDetails?: CardDetail[];
     chartData?: any;
     editPointTable?: boolean;
+    barInterface?: BarInterface;
 }

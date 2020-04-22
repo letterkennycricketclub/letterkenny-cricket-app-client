@@ -19,3 +19,20 @@
 html {
   scroll-behavior: smooth;
 }
+
+@media only screen 
+and (min-device-width : 1200px) { 
+  .dashboards {
+    display: inline;
+  }
+  .bar-chart {
+    max-width: 720px;
+    float: left;
+    margin: 30px;
+  }
+  .pie-chart {
+    float: left;
+    max-width: 450px;
+    margin: 30px;
+  }
+}

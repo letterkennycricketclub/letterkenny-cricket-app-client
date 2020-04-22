@@ -21,6 +21,7 @@ export default class AppHeader extends React.Component {
               <Link to={'/teams'} className='nav-link'>Teams</Link>
               <Link to={'/tournaments'} className='nav-link'>Tournaments</Link>
               <Link to={'/about'} className='nav-link'>About</Link>
+              <Link to={'/dashboard'} className='nav-link'>Dashboard</Link>
               </Nav>
               {this.generateLoginComp()}
             </Navbar.Collapse>
