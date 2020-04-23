@@ -15,6 +15,7 @@ import { AdminRoute } from './routes/admin/admin-route';
 import AdminPointTable from './routes/admin/point-table';
 import Login from './components/login/login';
 import Admin from './routes/admin/admin';
+import AddClubEvent from './routes/admin/add-event/add-club-event';
 
 export default class App extends Component {
   render() {
@@ -33,6 +34,7 @@ export default class App extends Component {
               <Route exact path='/admin/login' component={Login} />
               <AdminRoute path="/admin/home" component={Admin} />
               <AdminRoute path='/admin/point-table' component={AdminPointTable} />
+              <AdminRoute path='/admin/add-club-event' component={AddClubEvent} />
           </Context>
         </Switch>
       </AppLayout>

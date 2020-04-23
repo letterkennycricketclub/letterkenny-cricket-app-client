@@ -1,7 +1,6 @@
 import React, { FC, useState } from "react";
-import { fakeAuth } from '../../routes/admin/admin-route';
 import { Redirect } from "react-router";
-import { FormGroup, FormControl, Button, Form, Container, Col, Row } from 'react-bootstrap';
+import { Button, Form, Container, Col, Row } from 'react-bootstrap';
 import { UserService, User } from '../../services/user-service';
 
 const Login: FC<any> = (props) => {
