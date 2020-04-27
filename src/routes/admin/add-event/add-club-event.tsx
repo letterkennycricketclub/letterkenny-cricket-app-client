@@ -18,7 +18,7 @@ const AddClubEvent: FC<any> = (props) => {
 
     const handleSubmit = async (event: any) => {
         event.preventDefault();
-        console.log(title, description, date, imageFile)
+        console.log(title, description, date, imageFile, links)
         // const user:User = {
         //     email,
         //     password,
@@ -31,11 +31,6 @@ const AddClubEvent: FC<any> = (props) => {
         const selectedFile: File = event.target.files[0];
         setImageFile(selectedFile);
         console.log(selectedFile)
-        let reader = new FileReader();
-        reader.readAsArrayBuffer(selectedFile);
-        reader.onload = (e: any) => {
-            console.log(e.target.result)
-        };
     }
 
     const addLink = () => {
@@ -85,7 +80,7 @@ const AddClubEvent: FC<any> = (props) => {
                         <Form.Group as={Row} controlId="eventDescription">
                             <Form.Label column sm={2}>Event Description</Form.Label>
                             <Col sm={10}>
-                                <Form.Control column sm={10} as="textarea" rows="3" placeholder="Enter Description" value={description} onChange={(e: any) => setDescription(e.target.value)} />
+                                <Form.Control sm={10} as="textarea" rows="3" placeholder="Enter Description" value={description} onChange={(e: any) => setDescription(e.target.value)} />
                             </Col>
                         </Form.Group>
 
