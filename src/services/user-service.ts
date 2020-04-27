@@ -1,3 +1,7 @@
+import HttpService, { IIndexable } from "../services/http-service";
+import AppConstants from "../core/constants";
+import serviceConfig from "../service-config";
+
 var base64 = require("base-64");
 export interface User {
   email: string;
@@ -5,12 +9,29 @@ export interface User {
   role: string;
 }
 
-const UUID: string = "uuID";
+let UUID: string;
 
 export class UserService {
   public static async login(user: User) {
-    sessionStorage.setItem(UUID, base64.encode(JSON.stringify(user)));
-    return true;
+    const userDetails = await HttpService.postData(
+      AppConstants.API.LOGIN_API,
+      user
+    )
+      .then((res) => {
+        if (res.success) {
+          sessionStorage.setItem(
+            UUID,
+            base64.encode(JSON.stringify(res.sessionID))
+          );
+          return res.results;
+        } else {
+          throw "Invalid email or password.";
+        }
+      })
+      .catch((err) => {
+        throw new Error(err);
+      });
+    return userDetails;
   }
 
   public static logout(): void {

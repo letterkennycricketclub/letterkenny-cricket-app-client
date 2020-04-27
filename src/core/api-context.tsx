@@ -1,6 +1,7 @@
-import React, {useState, useEffect} from 'react';
-import HttpService from '../services/http-service';
-import AppConstants from './constants';
+import React, { useState, useEffect } from "react";
+import HttpService from "../services/http-service";
+import AppConstants from "./constants";
+import { User } from "../services/user-service";
 
 export const ApiContext = React.createContext({});
 
@@ -10,31 +11,41 @@ const Context = (props: any) => {
   const [cardDetails, setCardDetails] = useState([]);
   const [tournaments, setTournaments] = useState([]);
   const [eventDetails, setEventDetails] = useState([]);
+  const [userDetails, setUserDetails] = useState({ email: "", role: "" });
 
-   useEffect(() => {
+  useEffect(() => {
     HttpService.fetch(AppConstants.API.HOME_CAROUSEL_API).then((medias) => {
-        setMedias(medias);
+      setMedias(medias);
     });
     HttpService.fetch(AppConstants.API.POINT_TABLE_API).then((pointTables) => {
-        setPointTables(pointTables.tournaments);
+      setPointTables(pointTables.tournaments);
     });
     HttpService.fetch(AppConstants.API.HOME_CARD_API).then((cardDetails) => {
-        setCardDetails(cardDetails);
+      setCardDetails(cardDetails);
     });
     HttpService.fetch(AppConstants.API.TEAMS_API).then((results) => {
-        setTournaments(results.tournaments);
+      setTournaments(results.tournaments);
     });
     HttpService.fetch(AppConstants.API.EVENT_CARD_API).then((eventDetails) => {
-        setEventDetails(eventDetails);
+      setEventDetails(eventDetails);
     });
-    
   }, []);
 
   return (
-    <ApiContext.Provider value={{medias, pointTables, cardDetails, tournaments, eventDetails}}>
+    <ApiContext.Provider
+      value={{
+        medias,
+        pointTables,
+        cardDetails,
+        tournaments,
+        eventDetails,
+        userDetails,
+        setUserDetails,
+      }}
+    >
       {props.children}
     </ApiContext.Provider>
-  )
-}
+  );
+};
 
 export default Context;
