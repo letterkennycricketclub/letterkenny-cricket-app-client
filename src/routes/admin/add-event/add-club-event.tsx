@@ -3,61 +3,72 @@ import { Redirect } from "react-router";
 import { Button, Form, Container, Col, Row } from 'react-bootstrap';
 import { UserService, User } from '../../../services/user-service';
 import { Link } from '../../../core/api-data-obj';
+import { ClubEventService } from '../../../services/club-event-service';
 
 const AddClubEvent: FC<any> = (props) => {
 
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [date, setDate] = useState("");
-    const [imageFile, setImageFile] = useState<File>();
-    const [links, setLinks] = useState<Link[]>([]);
+    const [mediaFile, setMediaFile] = useState<File>();
+   // const [links, setLinks] = useState<Link[]>([]);
+    const [apiResult, setApiResult] = useState("");
 
     const validateForm = () => {
-        return true;//email.length > 0 && password.length > 0;
+        return (title != "" && description != "" && date != "" && mediaFile != undefined )
+    }
+
+    const resetForm = () => {
+        setTitle("");
+        setDescription("");
+        setDate("");
+        setMediaFile(undefined);
+        setApiResult("");
+
     }
 
     const handleSubmit = async (event: any) => {
         event.preventDefault();
-        console.log(title, description, date, imageFile, links)
-        // const user:User = {
-        //     email,
-        //     password,
-        //     role
-        // };
-        // setRedirectToReferrer(await UserService.login(user));
+        const _apiResult = await ClubEventService.addEvent({
+            title,
+            description,
+            date,
+            mediaFile
+        });
+        setApiResult(_apiResult);
+
     }
 
     const onImageFileSelected = (event: any) => {
         const selectedFile: File = event.target.files[0];
-        setImageFile(selectedFile);
-        console.log(selectedFile)
+        setMediaFile(selectedFile);
     }
 
-    const addLink = () => {
-        return links.map((link: Link, i: any) =>
-            <div key={i}>
-                <Form.Group as={Row} controlId="linkTitle">
-                    <Form.Label column sm={2}>Link</Form.Label>
-                    <Col sm={4}><Form.Control type="text" placeholder="Enter Title" onChange={(e: any)=> textChanged(link, 'title', e.target.value)} /></Col>
-                    <Col sm={4}><Form.Control type="text" placeholder="Enter URL" onChange={(e: any)=> textChanged(link, 'url', e.target.value)}/></Col>
-                    <Col sm={2}>    <Button variant="success" type="button" onClick={ (e: any)=> onLinkRemoved(i)} >
-                                    Remove
-                        </Button></Col>
-                </Form.Group>
-            </div>
-        );
-    }
+    // const addLink = () => {
+    //     return links.map((link: Link, i: any) =>
+    //         <div key={i}>
+    //             <Form.Group as={Row} controlId="linkTitle">
+    //                 <Form.Label column sm={2}>Link</Form.Label>
+    //                 <Col sm={4}><Form.Control type="text" placeholder="Enter Title" onChange={(e: any)=> textChanged(link, 'title', e.target.value)} /></Col>
+    //                 <Col sm={4}><Form.Control type="text" placeholder="Enter URL" onChange={(e: any)=> textChanged(link, 'url', e.target.value)}/></Col>
+    //                 <Col sm={2}>    <Button variant="success" type="button" onClick={ (e: any)=> onLinkRemoved(i)} >
+    //                                 Remove
+    //                     </Button></Col>
+    //             </Form.Group>
+    //         </div>
+    //     );
+    // }
 
-    const onAddLink = () => {
-        const link: Link[] = [{ title: '', url: '' }];
-        setLinks(links.concat(link));
-    }
+    // const onAddLink = () => {
+    //     const link: Link[] = [{ title: '', url: '' }];
+    //     setLinks(links.concat(link));
+    // }
 
-    const onLinkRemoved = (i:any) => {
-        let nlinks = [...links];
-        nlinks.splice(i, 1);
-       setLinks(nlinks);
-    }
+    // const onLinkRemoved = (i:any) => {
+    //     let nlinks = [...links];
+    //     nlinks.splice(i, 1);
+    //    setLinks(nlinks);
+    // }
 
     const textChanged = (link: any,  lProp:string, value: any) => {
         link[lProp] = value;
@@ -65,6 +76,8 @@ const AddClubEvent: FC<any> = (props) => {
 
     return (
         <Container>
+        <h2>Add Club Event</h2>
+        <p className="primary">{apiResult}</p>
             <Row className="mt-5">
                 <Col md="12">
                     <Form onSubmit={handleSubmit}>
@@ -97,13 +110,13 @@ const AddClubEvent: FC<any> = (props) => {
                                 <Form.File custom>
                                     <Form.File.Input isValid onChange={onImageFileSelected} />
                                     <Form.File.Label data-browse="Upload Image...">
-                                        {imageFile ? imageFile.name : ''}
+                                        {mediaFile ? mediaFile.name : ''}
                                     </Form.File.Label>
                                 </Form.File>
                             </Col>
                         </Form.Group>
 
-                        <Form.Group as={Row} controlId="eventLinks">
+                        {/* <Form.Group as={Row} controlId="eventLinks">
                             <Form.Label column sm={2}>Event Links (Optional)</Form.Label>
                             <Col sm={10}>
                                 <Button variant="success" type="button" onClick={onAddLink} >
@@ -111,11 +124,15 @@ const AddClubEvent: FC<any> = (props) => {
                         </Button>
                             </Col>
                         </Form.Group>
-                        {addLink()}
+                        {addLink()} */}
                         <Form.Group as={Row}>
                             <Col sm={{ span: 10, offset: 2 }}>
                                 <Button variant="primary" type="submit" disabled={!validateForm()}>
                                     Submit
+                                </Button>
+                                &nbsp;&nbsp;&nbsp;
+                                <Button variant="warning" onClick={resetForm}>
+                                    Reset
                                 </Button>
                             </Col>
                         </Form.Group>

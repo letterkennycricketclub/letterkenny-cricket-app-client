@@ -24,4 +24,14 @@ export default class HttpService {
       console.error('Something Bad Happened ! ', JSON.stringify(error));
     }
   }
+
+  public static async fetch1(serviceId: string, requestOptions: {} = {
+    method: 'GET',
+    headers: { 'Content-Type': 'application/json' }
+  }) {
+    return fetch(this.getURL(serviceId), requestOptions).then(
+      response => response.json(),
+      error => console.log('An error occurred.', error)
+    )
+  }
 }
