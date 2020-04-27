@@ -5,6 +5,7 @@ const AppConstants = {
         HOME_CARD_API : "homeCardsAPI",
         EVENT_CARD_API : "eventCardsAPI",
         TEAMS_API : "teamsAPI",
+        LOGIN_API: "loginAPI",
         ADMIN : {
             ADD_EVENT : 'adminAddEventAPI'
         }

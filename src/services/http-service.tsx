@@ -1,27 +1,25 @@
-import serviceConfig from '../service-config';
+import serviceConfig from "../service-config";
 
-
-interface IIndexable {
+export interface IIndexable {
   [key: string]: any;
 }
 
 export default class HttpService {
-
-  static BASE_URL = "http://localhost:3002"//"http://preview.letterkennycricketclub.com";//"http://localhost:3002";
-
+  static BASE_URL = "http://preview.letterkennycricketclub.com"; //"http://localhost:3002";
+  static requestHeaders: any = { "Content-Type": "application/json" };
 
   private static getURL(serviceId: string) {
-    console.log( this.BASE_URL + (serviceConfig as IIndexable)[serviceId])
+    console.log(this.BASE_URL + (serviceConfig as IIndexable)[serviceId]);
     return this.BASE_URL + (serviceConfig as IIndexable)[serviceId];
   }
 
   public static async fetch(serviceId: string) {
     const res = await fetch(this.getURL(serviceId));
-    const {results, error} = await res.json();
+    const { results, error } = await res.json();
     if (!error) {
       return results;
     } else {
-      console.error('Something Bad Happened ! ', JSON.stringify(error));
+      console.error("Something Bad Happened ! ", JSON.stringify(error));
     }
   }
 
@@ -33,5 +31,17 @@ export default class HttpService {
       response => response.json(),
       error => console.log('An error occurred.', error)
     )
+  }
+
+  public static async postData(serviceId: string, data = {}) {
+    const url = this.getURL(serviceId);
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+    return response.json();
   }
 }
