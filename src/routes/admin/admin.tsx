@@ -28,6 +28,9 @@ const Admin: FC<AppProps> = () => {
                   <ListGroupItem>
                     <Link to="/admin/point-table">Point Table</Link>
                   </ListGroupItem>
+                  <ListGroupItem>
+                    <Link to="/admin/add-club-event">Add Club Event</Link>
+                  </ListGroupItem>
                 </ListGroup>
               </Card.Body>
             </Card>
