@@ -1,6 +1,5 @@
 import HttpService, { IIndexable } from "../services/http-service";
 import AppConstants from "../core/constants";
-import serviceConfig from "../service-config";
 
 var base64 = require("base-64");
 export interface User {
@@ -9,19 +8,25 @@ export interface User {
   role: string;
 }
 
-let UUID: string;
-
 export class UserService {
   public static async login(user: User) {
-    const userDetails = await HttpService.postData(
+    const headers = new Headers();
+    headers.append("Content-Type", "application/json");
+    const requestOptions = {
+      method: "POST",
+      headers: headers,
+      body: JSON.stringify(user),
+    };
+
+    const userDetails = await HttpService.fetch1(
       AppConstants.API.LOGIN_API,
-      user
+      requestOptions
     )
       .then((res) => {
         if (res.success) {
           sessionStorage.setItem(
-            UUID,
-            base64.encode(JSON.stringify(res.sessionID))
+            AppConstants.AUTH_TOKEN,
+            res.results.sessionID
           );
           return res.results;
         } else {
@@ -35,15 +40,15 @@ export class UserService {
   }
 
   public static logout(): void {
-    sessionStorage.removeItem(UUID);
+    sessionStorage.removeItem(AppConstants.AUTH_TOKEN);
   }
 
   public static isUserLoggedIn(): boolean {
-    return sessionStorage.getItem(UUID) ? true : false;
+    return sessionStorage.getItem(AppConstants.AUTH_TOKEN) ? true : false;
   }
 
   public static getUser(): User {
-    const user: any = sessionStorage.getItem(UUID);
+    const user: any = sessionStorage.getItem(AppConstants.AUTH_TOKEN);
     return JSON.parse(base64.decode(user));
   }
 }
