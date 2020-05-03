@@ -41,6 +41,7 @@ const Context = (props: any) => {
         eventDetails,
         userDetails,
         setUserDetails,
+        setPointTables
       }}
     >
       {props.children}

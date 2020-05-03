@@ -1,3 +1,4 @@
+import { IIndexable } from '../services/http-service';
 export interface Media {
     title:string;
     type:string;

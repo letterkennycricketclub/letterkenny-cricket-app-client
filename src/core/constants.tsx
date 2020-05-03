@@ -7,7 +7,8 @@ const AppConstants = {
         TEAMS_API : "teamsAPI",
         LOGIN_API: "loginAPI",
         ADMIN : {
-            ADD_EVENT : 'adminAddEventAPI'
+            ADD_EVENT : 'adminAddEventAPI',
+            UPDATE_POINT_TABLE : 'adminUpdatePointTableAPI'
         }
     }
 }

@@ -26,6 +26,7 @@
     "react-router-dom": "^5.1.2",
     "react-router-hash-link": "^1.2.2",
     "react-scripts": "3.4.0",
+    "react-scroll-to-component": "^1.0.2",
     "typescript": "^3.7.5"
   },
   "scripts": {

@@ -1,8 +1,5 @@
 import React, { FC, useState } from "react";
-import { Redirect } from "react-router";
 import { Button, Form, Container, Col, Row } from 'react-bootstrap';
-import { UserService, User } from '../../../services/user-service';
-import { Link } from '../../../core/api-data-obj';
 import { ClubEventService } from '../../../services/club-event-service';
 
 const AddClubEvent: FC<any> = (props) => {
@@ -70,9 +67,9 @@ const AddClubEvent: FC<any> = (props) => {
     //    setLinks(nlinks);
     // }
 
-    const textChanged = (link: any,  lProp:string, value: any) => {
-        link[lProp] = value;
-    }
+    // const textChanged = (link: any,  lProp:string, value: any) => {
+    //     link[lProp] = value;
+    // }
 
     return (
         <Container>
