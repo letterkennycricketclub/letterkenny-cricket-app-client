@@ -5,7 +5,7 @@ const serviceConfig = {
   getClubEventsAPI: "/api/getClubEvents",
   teamsAPI: "/api/teams",
   loginAPI: "/api/login",
-  adminAddEventAPI : "/api/admin/addClubEvent",
+  adminAddClubEventAPI : "/api/admin/addClubEvent",
   adminUpdatePointTableAPI : "/api/admin/updatePointTable"
 };
 

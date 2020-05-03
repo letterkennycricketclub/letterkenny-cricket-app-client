@@ -9,11 +9,10 @@ import {
   ListGroup,
 } from "react-bootstrap";
 import ClubPointTable from "../../components/point-table/club-point-table";
-import { ApiContext } from "../../core/api-context";
 import { Link } from "react-router-dom";
+import AppConstants from "../../core/constants";
 
 const Admin: FC<AppProps> = () => {
-  const context: any = useContext(ApiContext);
   return (
     <Container>
       <Row className="mt-5">
@@ -21,7 +20,8 @@ const Admin: FC<AppProps> = () => {
           <Row>
             <Card>
               <Card.Title>
-                {context.userDetails.email} Admin Components
+                {sessionStorage.getItem(AppConstants.USER_EMAIL)} Admin
+                Components
               </Card.Title>
               <Card.Body>
                 <ListGroup>

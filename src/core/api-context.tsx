@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import HttpService from "../services/http-service";
 import AppConstants from "./constants";
-import { User } from "../services/user-service";
 
 export const ApiContext = React.createContext({});
 

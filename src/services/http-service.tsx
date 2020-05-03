@@ -6,7 +6,7 @@ export interface IIndexable {
 }
 
 export default class HttpService {
-  static BASE_URL = "http://localhost:3002";//"http://preview.letterkennycricketclub.com"; //
+  static BASE_URL = "http://preview.letterkennycricketclub.com"; //"http://localhost:3002";//
   static requestHeaders: any = { "Content-Type": "application/json" };
 
   private static getURL(serviceId: string) {

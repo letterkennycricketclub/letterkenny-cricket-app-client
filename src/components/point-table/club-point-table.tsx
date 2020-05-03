@@ -59,7 +59,7 @@ export default class ClubPointTable extends Component<AppProps> {
       </ListGroupItem>) : ''
     }
     generatePointTables(pointTables: PointTable[]): React.ReactNode {
-        const allowedHeaders: any = this.props.allowedPointHeaders;
+        const allowedHeaders: any = this.props.allowedPointHeaders || this.getDefaultPointHeaders();
         return pointTables.map((pointTable: PointTable) => {
             const { id, name, data } = pointTable;
             let filteredData = this.getFilteredData(allowedHeaders, data);
@@ -99,5 +99,9 @@ export default class ClubPointTable extends Component<AppProps> {
         } else {
             return data;
         }
+    }
+
+    getDefaultPointHeaders() {
+        return [`Rank`, `Logo`, `Team_Name`, `M`, `W`, `L`, `TotalRuns_Scored`, `TotalRuns_Conceded`, `TotalRuns_Overs`, `Round1_Pt`, `Pts`, `RR`, `Penalty_RR`];
     }
 }
