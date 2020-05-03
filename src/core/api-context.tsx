@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import HttpService from "../services/http-service";
 import AppConstants from "./constants";
-import { User } from "../services/user-service";
 
 export const ApiContext = React.createContext({});
 
@@ -11,8 +10,6 @@ const Context = (props: any) => {
   const [cardDetails, setCardDetails] = useState([]);
   const [tournaments, setTournaments] = useState([]);
   const [eventDetails, setEventDetails] = useState([]);
-  const [userDetails, setUserDetails] = useState({ email: "", role: "" });
-
   useEffect(() => {
     HttpService.fetch(AppConstants.API.HOME_CAROUSEL_API).then((medias) => {
       setMedias(medias);
@@ -39,8 +36,6 @@ const Context = (props: any) => {
         cardDetails,
         tournaments,
         eventDetails,
-        userDetails,
-        setUserDetails,
       }}
     >
       {props.children}

@@ -1,5 +1,9 @@
 const AppConstants = {
   AUTH_TOKEN: "session-token",
+  APP_ID: "3025613090832000",
+  USER_EMAIL: "email",
+  USER_ROLE: "role",
+  ADMIN: "admin",
   API: {
     HOME_CAROUSEL_API: "homeCarouselAPI",
     POINT_TABLE_API: "pointTableAPI",

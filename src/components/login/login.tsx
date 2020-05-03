@@ -25,12 +25,6 @@ const Login: FC<any> = (props) => {
     };
     UserService.login(user)
       .then((data) => {
-        context.setUserDetails({
-          ...context.userDetails,
-          email: data.username,
-          role: data.role,
-        });
-        console.log(context.userDetails);
         setRedirectToReferrer(true);
       })
       .catch((err) => {
@@ -43,7 +37,7 @@ const Login: FC<any> = (props) => {
     from: { pathname: "/admin/home" },
   };
 
-  if (redirectToReferrer && context.userDetails) {
+  if (redirectToReferrer) {
     return <Redirect to="/admin/home" />;
   }
 

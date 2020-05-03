@@ -28,6 +28,8 @@ export class UserService {
             AppConstants.AUTH_TOKEN,
             res.results.sessionID
           );
+          sessionStorage.setItem(AppConstants.USER_EMAIL, res.results.email);
+          sessionStorage.setItem(AppConstants.USER_ROLE, res.results.role);
           return res.results;
         } else {
           throw "Invalid email or password.";
