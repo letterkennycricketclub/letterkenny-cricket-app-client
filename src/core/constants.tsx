@@ -1,13 +1,14 @@
 const AppConstants = {
+    AUTH_TOKEN: "session-token",
     API : {
         HOME_CAROUSEL_API : "homeCarouselAPI",
-        POINT_TABLE_API : "pointTableAPI",
+        GET_POINT_TABLE_API : "getPointTableAPI",
         HOME_CARD_API : "homeCardsAPI",
-        EVENT_CARD_API : "eventCardsAPI",
+        GET_CLUB_EVENTS_API : "getClubEventsAPI",
         TEAMS_API : "teamsAPI",
         LOGIN_API: "loginAPI",
         ADMIN : {
-            ADD_EVENT : 'adminAddEventAPI',
+            ADD_EVENT : 'adminAddClubEventAPI',
             UPDATE_POINT_TABLE : 'adminUpdatePointTableAPI'
         }
     }

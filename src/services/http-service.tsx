@@ -1,4 +1,5 @@
 import serviceConfig from "../service-config";
+import AppConstants from "../core/constants";
 
 export interface IIndexable {
   [key: string]: any;
@@ -13,6 +14,19 @@ export default class HttpService {
     return this.BASE_URL + (serviceConfig as IIndexable)[serviceId];
   }
 
+  public static getAuthToken() {
+    return sessionStorage.getItem(AppConstants.AUTH_TOKEN);
+  }
+
+  public static getReqHeader() {
+    let header = new Headers();
+    header.append("Content-Type", "application/json");
+    if (this.getAuthToken()) {
+      header.append("Authorization", `Bearer ${this.getAuthToken()}`);
+    }
+    return header;
+  }
+
   public static async fetch(serviceId: string) {
     const res = await fetch(this.getURL(serviceId));
     const { results, error } = await res.json();
@@ -23,25 +37,16 @@ export default class HttpService {
     }
   }
 
-  public static async fetch1(serviceId: string, requestOptions: {} = {
-    method: 'GET',
-    headers: { 'Content-Type': 'application/json' }
-  }) {
+  public static async fetch1(
+    serviceId: string,
+    requestOptions: {} = {
+      method: "GET",
+      headers: this.getReqHeader(),
+    }
+  ) {
     return fetch(this.getURL(serviceId), requestOptions).then(
-      response => response.json(),
-      error => console.log('An error occurred.', error)
-    )
-  }
-
-  public static async postData(serviceId: string, data = {}) {
-    const url = this.getURL(serviceId);
-    const response = await fetch(url, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    });
-    return response.json();
+      (response) => response.json(),
+      (error) => console.log("An error occurred.", error)
+    );
   }
 }

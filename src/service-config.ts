@@ -1,11 +1,11 @@
 const serviceConfig = {
   homeCarouselAPI: "/api/homeCarousel",
-  pointTableAPI: "/api/getPointTable",
+  getPointTableAPI: "/api/getPointTable",
   homeCardsAPI: "/api/homeCards",
-  eventCardsAPI: "/api/events",
+  getClubEventsAPI: "/api/getClubEvents",
   teamsAPI: "/api/teams",
   loginAPI: "/api/login",
-  adminAddEventAPI : "/api/admin/addEvent",
+  adminAddEventAPI : "/api/admin/addClubEvent",
   adminUpdatePointTableAPI : "/api/admin/updatePointTable"
 };
 

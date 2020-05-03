@@ -17,7 +17,7 @@ const Context = (props: any) => {
     HttpService.fetch(AppConstants.API.HOME_CAROUSEL_API).then((medias) => {
       setMedias(medias);
     });
-    HttpService.fetch(AppConstants.API.POINT_TABLE_API).then((pointTables) => {
+    HttpService.fetch(AppConstants.API.GET_POINT_TABLE_API).then((pointTables) => {
       setPointTables(pointTables.tournaments);
     });
     HttpService.fetch(AppConstants.API.HOME_CARD_API).then((cardDetails) => {
@@ -26,7 +26,7 @@ const Context = (props: any) => {
     HttpService.fetch(AppConstants.API.TEAMS_API).then((results) => {
       setTournaments(results.tournaments);
     });
-    HttpService.fetch(AppConstants.API.EVENT_CARD_API).then((eventDetails) => {
+    HttpService.fetch(AppConstants.API.GET_CLUB_EVENTS_API).then((eventDetails) => {
       setEventDetails(eventDetails);
     });
   }, []);
