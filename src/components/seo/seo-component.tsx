@@ -15,7 +15,7 @@ const Seo: React.FC<AppProps> = (props) => {
       <meta name="og:url" content={props.fbMetaTags!.link} />
       <meta name="og:title" content={props.fbMetaTags!.title} />
       <meta name="og:description" content={props.fbMetaTags!.description} />
-      <meta name="og:image" content={props.fbMetaTags!.image} />
+      <meta property="og:image" content={props.fbMetaTags!.image} />
       <meta name="og:type" content="website" />
       <meta name="fb:app_id" content={AppConstants.APP_ID} />
     </Helmet>

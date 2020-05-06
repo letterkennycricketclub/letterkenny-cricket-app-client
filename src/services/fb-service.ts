@@ -20,13 +20,17 @@ export class FbService {
     }
     FB.ui(
       {
-        method: "share",
-        href: data.link,
-        name: "Facebook Dialogs",
-        link: data.link,
-        picture: data.image,
-        caption: data.title,
-        description: data.description,
+        method: "share_open_graph",
+        action_type: "og.shares",
+        display: "popup",
+        action_properties: JSON.stringify({
+          object: {
+            "og:url": data.link,
+            "og:title": data.title,
+            "og:description": data.description,
+            "og:image": data.image,
+          },
+        }),
       },
       function (response: any) {
         console.log(response);
