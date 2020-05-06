@@ -6,15 +6,9 @@ export interface Media {
 }
 
 export interface PointTable {
-<<<<<<< HEAD
     Tournament_Id: string;
     Tournament_Name: string;
     data: Array<any>;
-=======
-  id: string;
-  name: string;
-  data: Array<any>;
->>>>>>> 99a91454c5a1b63654e46558e16121dfad03865d
 }
 
 export interface CardDetail {
