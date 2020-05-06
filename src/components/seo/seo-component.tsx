@@ -4,6 +4,7 @@ import AppConstants from "../../core/constants";
 import { AppProps, IFbMetaTags } from "../../core/props";
 
 const Seo: React.FC<AppProps> = (props) => {
+  console.log("props from seo component to set Meta tags", props);
   return (
     <Helmet>
       <title>{props.fbMetaTags!.title}</title>

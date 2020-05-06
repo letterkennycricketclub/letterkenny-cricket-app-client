@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Seo from "../seo/seo-component";
 
 import {
@@ -19,13 +19,17 @@ const cardStyle = {
 };
 
 const AppCard: React.FC<AppProps> = (props) => {
-  let metaData: IFbMetaTags = {
-    description: "Ongoing Events in LCC",
-    link: "http://preview.letterkennycricketclub.com",
-    title: "Events in Letterkenny Cricket Club",
-    image:
-      "https://club-site-media.s3-eu-west-1.amazonaws.com/events/letterkenny-team.jpg",
-  };
+  const [metaData, setMetaData] = useState({
+    description: "",
+    link: "",
+    title: "",
+    image: "",
+  });
+  useEffect(() => {
+    if (metaData.title) {
+      FbService.sharePost(metaData);
+    }
+  }, [metaData]);
 
   const generateLinks = (links: any) => {
     let url = "";
@@ -86,11 +90,13 @@ const AppCard: React.FC<AppProps> = (props) => {
 
   const shareContent = (cardDetail: CardDetail, id: string) => {
     const currentPath = window.location.href.split("#")[0];
-    metaData.title = cardDetail.title;
-    metaData.description = cardDetail.description;
-    metaData.image = cardDetail.url;
-    metaData.link = currentPath + "#" + id;
-    FbService.sharePost(metaData);
+    setMetaData({
+      ...metaData,
+      title: cardDetail.title!,
+      description: cardDetail.description!,
+      image: cardDetail.url!,
+      link: currentPath + "#" + id,
+    });
   };
 
   const generateAdminLinks = (cardDetail: CardDetail, index: number) => {

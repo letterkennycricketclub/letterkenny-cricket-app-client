@@ -15,6 +15,7 @@ export class FbService {
   }
 
   public static sharePost(data: any) {
+    console.log("data from service to send to fb ui method", data);
     if (!isFbInitializede) {
       this.initFb();
     }
