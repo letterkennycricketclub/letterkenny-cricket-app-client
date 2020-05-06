@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Seo from "../seo/seo-component";
 
 import {
@@ -9,9 +9,8 @@ import {
   Container,
   Row,
 } from "react-bootstrap";
-import { AppProps, CardDetail } from "../../core/props";
+import { AppProps, CardDetail, IFbMetaTags } from "../../core/props";
 import { FbService } from "../../services/fb-service";
-import AppConstants from "../../core/constants";
 
 declare const window: Window;
 
@@ -20,7 +19,14 @@ const cardStyle = {
 };
 
 const AppCard: React.FC<AppProps> = (props) => {
-  const [metaData, setMetaData] = useState({});
+  let metaData: IFbMetaTags = {
+    description: "Ongoing Events in LCC",
+    link: "http://preview.letterkennycricketclub.com",
+    title: "Events in Letterkenny Cricket Club",
+    image:
+      "https://club-site-media.s3-eu-west-1.amazonaws.com/events/letterkenny-team.jpg",
+  };
+
   const generateLinks = (links: any) => {
     let url = "";
     let target = "";
@@ -80,7 +86,10 @@ const AppCard: React.FC<AppProps> = (props) => {
 
   const shareContent = (cardDetail: CardDetail, id: string) => {
     const currentPath = window.location.href.split("#")[0];
-    setMetaData({ ...cardDetail, link: currentPath + "#" + id });
+    metaData.title = cardDetail.title;
+    metaData.description = cardDetail.description;
+    metaData.image = cardDetail.url;
+    metaData.link = currentPath + "#" + id;
     FbService.sharePost(metaData);
   };
 
@@ -107,11 +116,9 @@ const AppCard: React.FC<AppProps> = (props) => {
             {generateImage(cardDetail)}
             {generateBody(cardDetail)}
             {generateLinks(cardDetail.links)}
-            {generateAdminLinks(cardDetail, index)}
-            {/* {sessionStorage.getItem(AppConstants.USER_ROLE) ===
-            AppConstants.ADMIN
+            {props.hasShareLink === true
               ? generateAdminLinks(cardDetail, index)
-              : null} */}
+              : null}
           </Card>
         );
       });
@@ -121,7 +128,7 @@ const AppCard: React.FC<AppProps> = (props) => {
 
   return (
     <div>
-      <Seo data={metaData} />
+      <Seo fbMetaTags={metaData} />
       <Container>
         {props.cardDetails ? generateCards(props.cardDetails) : ""}
       </Container>

@@ -21,7 +21,6 @@ export class FbService {
     FB.ui(
       {
         method: "share",
-        //href: currentPath + "/#" + cardId,
         href: data.link,
         name: "Facebook Dialogs",
         link: data.link,
