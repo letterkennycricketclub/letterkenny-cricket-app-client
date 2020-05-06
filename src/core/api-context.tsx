@@ -40,7 +40,8 @@ const Context = (props: any) => {
         eventDetails,
         userDetails,
         setUserDetails,
-        setPointTables
+        setPointTables,
+        setEventDetails
       }}
     >
       {props.children}

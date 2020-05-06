@@ -6,8 +6,8 @@ export interface Media {
 }
 
 export interface PointTable {
-    id: string;
-    name: string;
+    Tournament_Id: string;
+    Tournament_Name: string;
     data: Array<any>;
 }
 

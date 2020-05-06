@@ -12,6 +12,7 @@ const AdminPointTable: FC<AppProps> = (props: AppProps) => {
     const [pointTablesForUpdate, setPointTables] = useState(JSON.stringify(context.pointTables, undefined, 2));
     const [updatedPointTables, setUpdatedPointTables] = useState(context.pointTables);
     const [apiResult, setApiResult] = useState("");
+    const [showPreview, setShowPreview] = useState(false);
 
     const validateForm = () => {
         return true;
@@ -19,19 +20,21 @@ const AdminPointTable: FC<AppProps> = (props: AppProps) => {
 
     const resetForm = () => {
         setPointTables(JSON.stringify(context.pointTables, undefined, 2));
+        setShowPreview(false);
     }
     let pointTableCompRef: any;
 
     const updatePreview = async (event: any) => {
         event.preventDefault();
         console.log('pointable >>>>>', pointTablesForUpdate);
+        setShowPreview(true);
         setUpdatedPointTables(JSON.parse(pointTablesForUpdate));
-        scrollToComponent(pointTableCompRef, { offset: 0, align: 'middle', duration: 500, ease:'inCirc'});
-        
+        scrollToComponent(pointTableCompRef, { offset: 0, align: 'middle', duration: 500, ease: 'inCirc' });
+
     }
 
     const onUpdatePointTable = async (event: any) => {
-        const {message, success} = await PointTableService.updatePointTable(updatedPointTables);
+        const { message, success } = await PointTableService.updatePointTable(updatedPointTables);
         setApiResult(message);
         if (success) {
             context.setPointTables(updatedPointTables);
@@ -42,7 +45,6 @@ const AdminPointTable: FC<AppProps> = (props: AppProps) => {
     return (
         <Container>
             <h2>Update Point Table</h2>
-            <p className="primary">{apiResult}</p>
             <Row className="mt-5">
                 <Col md="12">
                     <Form>
@@ -53,7 +55,7 @@ const AdminPointTable: FC<AppProps> = (props: AppProps) => {
                                 <Form.Control sm={10} as="textarea" rows="20" value={pointTablesForUpdate} onChange={(e: any) => setPointTables(e.target.value)} />
                             </Col>
                         </Form.Group>
-                        
+
                         <Form.Group as={Row}>
                             <Col sm={{ span: 10, offset: 2 }}>
                                 <Button variant="primary" onClick={updatePreview} disabled={!validateForm()}>
@@ -69,18 +71,20 @@ const AdminPointTable: FC<AppProps> = (props: AppProps) => {
                 </Col>
             </Row>
             <Row className="mt-5">
-            <section ref={(row) => { pointTableCompRef = row; }}> </section>
-                {/* <Col md="12"> 
-                    <Row>*/}
-                        <ClubPointTable pointTables={updatedPointTables} />
-                    {/* </Row>
-                    
-                </Col> */}
+                {showPreview ? <ClubPointTable pointTables={updatedPointTables} /> : ''}
             </Row>
-            <Row>                        
-                <Button variant="primary" disabled={!validateForm()} onClick={onUpdatePointTable}>
-                    Update Point Table
-                </Button>
+            <Row>
+                <Col md="12">
+                    <Row>
+                        <section ref={(row) => { pointTableCompRef = row; }}></section>
+                        <p className="primary">{apiResult}</p> 
+                    </Row>
+                    <Row>
+                        <Button variant="primary" disabled={!validateForm()} onClick={onUpdatePointTable}>
+                            Update Point Table
+                        </Button>
+                    </Row>
+                </Col>
             </Row>
         </Container>
     );

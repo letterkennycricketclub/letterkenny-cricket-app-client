@@ -35,6 +35,6 @@ export class ClubEventService {
       AppConstants.API.ADMIN.ADD_EVENT,
       requestOptions
     );
-    return response.message ? response.message : response.error;
+    return response;
   }
 }

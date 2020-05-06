@@ -1,8 +1,12 @@
-import React, { FC, useState } from "react";
+import React, { FC, useState, useContext } from "react";
 import { Button, Form, Container, Col, Row } from 'react-bootstrap';
 import { ClubEventService } from '../../../services/club-event-service';
+import { AppCard } from "../../../components";
+import { ApiContext } from '../../../core/api-context';
 
 const AddClubEvent: FC<any> = (props) => {
+    
+    const context: any = useContext(ApiContext);
 
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
@@ -32,7 +36,10 @@ const AddClubEvent: FC<any> = (props) => {
             date,
             mediaFile
         });
-        setApiResult(_apiResult);
+        if(_apiResult.results) {
+            context.setEventDetails(_apiResult.results);
+        }
+        setApiResult(_apiResult.message);
 
     }
 
@@ -74,7 +81,6 @@ const AddClubEvent: FC<any> = (props) => {
     return (
         <Container>
         <h2>Add Club Event</h2>
-        <p className="primary">{apiResult}</p>
             <Row className="mt-5">
                 <Col md="12">
                     <Form onSubmit={handleSubmit}>
@@ -135,6 +141,12 @@ const AddClubEvent: FC<any> = (props) => {
                         </Form.Group>
                     </Form>
                 </Col>
+            </Row>            
+            <Row>
+                <p className="primary">{apiResult}</p> 
+            </Row>
+            <Row>
+                {(apiResult.indexOf('successfully') >= 0) ? <AppCard cardDetails={context.eventDetails} />: ''}
             </Row>
         </Container>
     );

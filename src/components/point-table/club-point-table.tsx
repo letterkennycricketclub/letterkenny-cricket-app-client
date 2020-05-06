@@ -54,18 +54,18 @@ export default class ClubPointTable extends Component<AppProps> {
     }
 
     generateLinks(allowedHeaders: any, id: string): React.ReactNode {
-        return allowedHeaders && allowedHeaders.length > 0 ?(<ListGroupItem key={id}>
-        <Link smooth to={'/detailed-point-table/#' + id}> Click to view Detailed Point Table </Link>
+        return this.props.allowedPointHeaders && this.props.allowedPointHeaders.length > 0 ?(<ListGroupItem key={id}>
+        <Link smooth to={'/detailed-point-table/#' + id}> View Detailed Point Table </Link>
       </ListGroupItem>) : ''
     }
     generatePointTables(pointTables: PointTable[]): React.ReactNode {
         const allowedHeaders: any = this.props.allowedPointHeaders || this.getDefaultPointHeaders();
         return pointTables.map((pointTable: PointTable) => {
-            const { id, name, data } = pointTable;
+            const { Tournament_Id, Tournament_Name, data } = pointTable;
             let filteredData = this.getFilteredData(allowedHeaders, data);
             const { headers, tBody } = this.generateTable(filteredData);
-            return filteredData && filteredData.length > 0 ? (<Card.Body id={id} key={id}>
-                <Card.Title>{name}</Card.Title>
+            return filteredData && filteredData.length > 0 ? (<Card.Body id={Tournament_Id} key={Tournament_Id}>
+                <Card.Title>{Tournament_Name}</Card.Title>
                 <Table striped bordered hover size="sm" style={tableSytle} responsive>
                     <thead>
                         <tr>
@@ -76,7 +76,7 @@ export default class ClubPointTable extends Component<AppProps> {
                         {tBody}
                     </tbody>
                 </Table>
-                        {this.generateLinks(allowedHeaders, id)}
+                        {this.generateLinks(allowedHeaders, Tournament_Id)}
             </Card.Body>) : '';
         })
 
