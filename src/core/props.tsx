@@ -6,9 +6,9 @@ export interface Media {
 }
 
 export interface PointTable {
-    Tournament_Id: string;
-    Tournament_Name: string;
-    data: Array<any>;
+  Tournament_Id: string;
+  Tournament_Name: string;
+  data: Array<any>;
 }
 
 export interface CardDetail {
@@ -45,13 +45,6 @@ export interface BarInterface {
   height?: number;
 }
 
-export interface IFbMetaTags {
-  description?: string;
-  link?: string;
-  title?: string;
-  image?: string;
-}
-
 export type AppProps = {
   allowedPointHeaders?: string[];
   medias?: Media[];
@@ -62,5 +55,5 @@ export type AppProps = {
   chartData?: any;
   barInterface?: BarInterface;
   hasShareLink?: boolean;
-  fbMetaTags?: IFbMetaTags;
+  fbMetaTags?: CardDetail;
 };

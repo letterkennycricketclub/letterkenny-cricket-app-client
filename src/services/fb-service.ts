@@ -14,8 +14,9 @@ export class FbService {
     isFbInitializede = true;
   }
 
-  public static sharePost(data: any) {
-    console.log("data from service to send to fb ui method", data);
+  public static sharePost(cardDetail: any, pageURL: string) {
+    console.log("data from service to send to fb ui method", cardDetail);
+    console.log("page url to send to fb ui method", pageURL);
     if (!isFbInitializede) {
       this.initFb();
     }
@@ -26,10 +27,10 @@ export class FbService {
         display: "popup",
         action_properties: JSON.stringify({
           object: {
-            "og:url": data.link,
-            "og:title": data.title,
-            "og:description": data.description,
-            "og:image": data.image,
+            "og:url": pageURL,
+            "og:title": cardDetail.title,
+            "og:description": cardDetail.description,
+            "og:image": cardDetail.url,
           },
         }),
       },

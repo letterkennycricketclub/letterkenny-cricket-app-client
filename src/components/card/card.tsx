@@ -1,16 +1,13 @@
-import React, { useState, useEffect } from "react";
-import Seo from "../seo/seo-component";
-
+import React from "react";
 import {
   Card,
-  Button,
   ListGroup,
   ListGroupItem,
   Container,
   Row,
 } from "react-bootstrap";
-import { AppProps, CardDetail, IFbMetaTags } from "../../core/props";
-import { FbService } from "../../services/fb-service";
+import { Link } from "react-router-dom";
+import { AppProps, CardDetail } from "../../core/props";
 
 declare const window: Window;
 
@@ -19,18 +16,6 @@ const cardStyle = {
 };
 
 const AppCard: React.FC<AppProps> = (props) => {
-  const [metaData, setMetaData] = useState({
-    description: "",
-    link: "",
-    title: "",
-    image: "",
-  });
-  useEffect(() => {
-    if (metaData.title) {
-      FbService.sharePost(metaData);
-    }
-  }, [metaData]);
-
   const generateLinks = (links: any) => {
     let url = "";
     let target = "";
@@ -88,29 +73,21 @@ const AppCard: React.FC<AppProps> = (props) => {
     );
   };
 
-  const shareContent = (cardDetail: CardDetail, id: string) => {
-    const currentPath = window.location.href.split("#")[0];
-    setMetaData({
-      ...metaData,
-      title: cardDetail.title!,
-      description: cardDetail.description!,
-      image: cardDetail.url!,
-      link: currentPath + "#" + id,
-    });
-  };
-
   const generateAdminLinks = (cardDetail: CardDetail, index: number) => {
-    const id = "card" + index;
+    const articlePath = cardDetail.title!.replace(/ /g, "-");
+    const currentPath = window.location.href.split("#")[0];
+    const pageURL = currentPath + "#card" + index;
     return (
-      <div className="mb-2 float-right">
-        <Button
-          variant="primary"
-          className="float-right"
-          onClick={() => shareContent(cardDetail, id)}
-        >
-          Share Event on Facebook
-        </Button>
-      </div>
+      <Link
+        className="text-right"
+        style={{ margin: "5px" }}
+        to={{
+          pathname: `article/${articlePath}`,
+          state: { cardDetail, pageURL },
+        }}
+      >
+        View Full Article
+      </Link>
     );
   };
 
@@ -133,12 +110,9 @@ const AppCard: React.FC<AppProps> = (props) => {
   };
 
   return (
-    <div>
-      <Seo fbMetaTags={metaData} />
-      <Container>
-        {props.cardDetails ? generateCards(props.cardDetails) : ""}
-      </Container>
-    </div>
+    <Container>
+      {props.cardDetails ? generateCards(props.cardDetails) : ""}
+    </Container>
   );
 };
 
